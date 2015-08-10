@@ -184,9 +184,11 @@ function wsp_plugin_row_meta($links, $file)
 {
     if ($file == plugin_basename(__FILE__)) {
         $settings_page = 'wp_sitemap_page';
-        $links[] = '<a href="options-general.php?page=' . $settings_page . '">' . __('Settings', 'wp_sitemap_page') . '</a>';
+        $links[] = '<a href="options-general.php?page=' . $settings_page . '">' . __('Settings',
+                'wp_sitemap_page') . '</a>';
         $links[] = '<a href="' . WSP_DONATE_LINK . '">' . __('Donate', 'wp_sitemap_page') . '</a>';
     }
+
     return $links;
 }
 
@@ -315,9 +317,11 @@ function wsp_manage_option(array $matches = array())
                 $categorie_info = get_the_category($the_post_id);
                 if (!empty($categorie_info)) {
                     $categorie_info = current($categorie_info);
+
                     //return print_r($categorie_info,1);
                     return (isset($categorie_info->name) ? $categorie_info->name : '');
                 }
+
                 return '';
                 break;
 
@@ -326,11 +330,13 @@ function wsp_manage_option(array $matches = array())
                 if (isset($matches[0])) {
                     return $matches[0];
                 }
+
                 return false;
                 break;
         }
 
     }
+
     return false;
 }
 
@@ -913,6 +919,8 @@ function wsp_return_content_type_cpt_items($is_title_displayed = true, $display_
     $args['post_type'] = $post_type;
     $args['posts_per_page'] = 999999;
     $args['suppress_filters'] = 0;
+    $args['orderby'] = 'title';
+    $args['order'] = 'ASC';
 
     // exclude some pages ?
     if (!empty($wsp_exclude_pages)) {
@@ -1135,6 +1143,7 @@ function wsp_htmlFromMultiArray(array $nav = array(), $useUL = true, $display_po
     if ($useUL === true) {
         $html .= '</ul>' . "\n";
     }
+
     return $html;
 }
 
@@ -1158,6 +1167,8 @@ function wsp_displayPostByCat($cat_id, $display_post_only_once = true, $display_
     $args = array();
     $args['numberposts'] = 999999;
     $args['cat'] = $cat_id;
+    $args['orderby'] = 'title';
+    $args['order'] = 'ASC';
 
     // exclude some pages ?
     if (!empty($wsp_exclude_pages)) {
